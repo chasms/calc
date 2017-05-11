@@ -1,6 +1,10 @@
+// module imports
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
+// app imports
 import './App.css';
+import Button from './components/Button'
+import Console from './components/Console'
 
 class App extends Component {
   render() {
