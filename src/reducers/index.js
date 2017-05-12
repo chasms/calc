@@ -4,7 +4,8 @@
 export default function reducer(state = {
   stack: [],
   value: 0,
-  console: 0
+  console: 0,
+  decimal: false
 }, action){
   switch (action.type) {
     case 'CLEAR':
@@ -33,28 +34,28 @@ export default function reducer(state = {
       ...state,
       stack: [...state.stack, state.console, '÷'],
       console: 0,
-      value: (state.value / state.console)
+      value: evaluate(state)
     }
     case 'MULTIPLY':
     return {
       ...state,
       stack: [...state.stack, state.console, '×'],
       console: 0,
-      value: (state.value * state.console)
+      value: evaluate(state)
     }
     case 'SUBTRACT':
     return {
       ...state,
       stack: [...state.stack, state.console, '−'],
       console: 0,
-      value: (state.value - state.console)
+      value: evaluate(state)
     }
     case 'ADD':
       return {
         ...state,
         stack: [...state.stack, state.console, '+'],
         console: 0,
-        value: (state.value + state.console)
+        value: evaluate(state)
       }
     case 'DECIMAL':
       return {
@@ -62,15 +63,33 @@ export default function reducer(state = {
         decimal: true
       }
     case 'EVALUATE':
+      let value = evaluate(state)
       return {
         ...state,
-        stack: [...state.stack, state.console, '='],
-        console: 0,
-        value: (state.value )
+        stack: [],
+        console: value,
+        value: value
       }
     case 'NUM':
       return { ...state, console: (state.console * 10 + action.payload) }
     default:
       return state
+  }
+}
+
+function evaluate(state) {
+  if (state.stack.length === 2) {
+    state.value = state.stack[0]
+  }
+  switch (state.stack[state.stack.length - 1]) {
+    case '+':
+      return state.value + state.console
+    case '-':
+      return state.value - state.console
+    case '÷':
+      return state.value / state.console
+    case '×':
+      return state.value * state.console
+    default: return state.value
   }
 }
