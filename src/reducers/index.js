@@ -5,73 +5,97 @@ export default function reducer(state = {
   stack: [],
   value: 0,
   console: 0,
-  decimal: false
+  decimal: 0
 }, action){
   switch (action.type) {
     case 'CLEAR':
       return {
         ...state,
-        console: 0
+        console: 0,
+        decimal: 0
       }
     case 'CLEAR_ALL':
       return {
         stack: [],
         value: 0,
-        console: 0
+        console: 0,
+        decimal: 0
       }
     case 'NEGATIVE':
       return {
         ...state,
-        console: (0 - state.console)
+        console: (0 - state.console),
+        decimal: 0
       }
     case 'PERCENT':
       return {
         ...state,
-        console: (state.console / 100)
+        console: (state.console / 100),
+        decimal: 0
       }
     case 'DIVIDE':
     return {
       ...state,
       stack: [...state.stack, state.console, '÷'],
       console: 0,
-      value: evaluate(state)
+      value: evaluate(state),
+      decimal: 0
     }
     case 'MULTIPLY':
     return {
       ...state,
       stack: [...state.stack, state.console, '×'],
       console: 0,
-      value: evaluate(state)
+      value: evaluate(state),
+      decimal: 0
     }
     case 'SUBTRACT':
     return {
-      ...state,
       stack: [...state.stack, state.console, '−'],
       console: 0,
-      value: evaluate(state)
+      value: evaluate(state),
+      decimal: 0
     }
     case 'ADD':
       return {
         ...state,
         stack: [...state.stack, state.console, '+'],
         console: 0,
-        value: evaluate(state)
+        value: evaluate(state),
+        decimal: 0
       }
     case 'DECIMAL':
-      return {
-        ...state,
-        decimal: true
-      }
+      if (state.decimal === 0) {
+        return {
+          ...state,
+          decimal: -1
+        }
+      } else return state
     case 'EVALUATE':
       let value = evaluate(state)
       return {
-        ...state,
         stack: [],
         console: value,
-        value: value
+        value: value,
+        decimal: 0
       }
     case 'NUM':
-      return { ...state, console: (state.console * 10 + action.payload) }
+      if (state.decimal === 0) {
+        return {
+          ...state,
+          console: (state.console * 10 + action.payload)
+        }
+      } else if (state.decimal <= -10) {
+        return {
+          ...state
+        }
+      } else {
+        return {
+          ...state,
+          console: (state.console + (action.payload * Math.pow(10, state.decimal))),
+          decimal: (state.decimal - 1)
+        }
+      }
     default:
       return state
   }
