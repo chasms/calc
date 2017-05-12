@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 
 // app imports
-import './App.css';
 import Button from './components/Button'
 import Console from './components/Console'
 
@@ -11,25 +10,25 @@ class App extends Component {
     return (
       <div className='container'>
         <Console />
-        <Button type='clear' />
-        <Button type='negative' />
-        <Button type='percent' />
-        <Button type='divide' />
+        <Button type='AC' />
+        <Button type='+/-' />
+        <Button type='%' />
+        <Button type='÷' />
         <Button type='7' />
         <Button type='8' />
         <Button type='9' />
-        <Button type='multiply' />
+        <Button type='×' />
         <Button type='4' />
         <Button type='5' />
         <Button type='6' />
-        <Button type='subtract' />
+        <Button type='−' />
         <Button type='1' />
         <Button type='2' />
         <Button type='3' />
-        <Button type='add' />
+        <Button type='+' />
         <Button type='0' />
-        <Button type='decimal' />
-        <Button type='evaluate' />
+        <Button type='.' />
+        <Button type='=' />
       </div>
     );
   }
