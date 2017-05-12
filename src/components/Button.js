@@ -26,7 +26,7 @@ class Button extends React.Component {
   }
 
   handleClick() {
-    switch (this.props.type) {
+    switch (this.props.val) {
       case 'AC':
         if (this.props.console === 0) {
           this.props.clearAll()
@@ -57,7 +57,7 @@ class Button extends React.Component {
         this.props.evaluate()
         break;
       case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9':
-        let num = parseInt(this.props.type, 10)
+        let num = parseInt(this.props.val, 10)
         this.props.num(num)
         break;
       default: return
@@ -67,12 +67,12 @@ class Button extends React.Component {
   render() {
     return (
       <div
-        className={'button' + (this.props.type === '0' ? ' button-0' : '') }
+        className={'button button-' + this.props.val + ' ' + this.props.type}
         onClick={this.handleClick}
       >
-        <h1>{this.props.type === 'AC' ? (
+        <h1>{this.props.val === 'AC' ? (
           this.props.console === 0 ? 'AC' : 'C')
-          : (this.props.type)}</h1>
+          : (this.props.val)}</h1>
       </div>
     )
   }

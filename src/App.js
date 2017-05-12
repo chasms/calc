@@ -10,25 +10,25 @@ class App extends Component {
     return (
       <div className='container'>
         <Console />
-        <Button type='AC' />
-        <Button type='+/-' />
-        <Button type='%' />
-        <Button type='÷' />
-        <Button type='7' />
-        <Button type='8' />
-        <Button type='9' />
-        <Button type='×' />
-        <Button type='4' />
-        <Button type='5' />
-        <Button type='6' />
-        <Button type='−' />
-        <Button type='1' />
-        <Button type='2' />
-        <Button type='3' />
-        <Button type='+' />
-        <Button type='0' />
-        <Button type='.' />
-        <Button type='=' />
+        <Button val='AC' type='clear' />
+        <Button val='+/-' type='modifier' />
+        <Button val='%' type='modifier' />
+        <Button val='÷' type='operator' />
+        <Button val='7' type='num' />
+        <Button val='8' type='num' />
+        <Button val='9' type='num' />
+        <Button val='×' type='operator' />
+        <Button val='4' type='num' />
+        <Button val='5' type='num' />
+        <Button val='6' type='num' />
+        <Button val='−' type='operator' />
+        <Button val='1' type='num' />
+        <Button val='2' type='num' />
+        <Button val='3' type='num' />
+        <Button val='+' type='operator' />
+        <Button val='0' type='num' />
+        <Button val='.' type='decimal' />
+        <Button val='=' type='operator' />
       </div>
     );
   }

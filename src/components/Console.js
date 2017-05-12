@@ -8,8 +8,12 @@ class Button extends React.Component {
   render() {
     return (
       <div className='console'>
-        <h2>{this.props.stack.join(' ')}</h2>
-        <h1>{(this.props.console === 0) ? (this.props.value) : (this.props.console)}</h1>
+        <p className='stack'>
+          {(this.props.stack.length === 0) ? ' ' : this.props.stack.join(' ')}
+        </p>
+        <p className='current'>
+          {(this.props.console === 0) ? (this.props.value) : (this.props.console)}
+        </p>
       </div>
     )
   }

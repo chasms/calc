@@ -1,3 +1,9 @@
+@font-face {
+font-family: "San Francisco";
+font-weight: 200;
+src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-thin-webfont.woff");
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -5,8 +11,8 @@ body {
   left: 0;
   height: 100%;
   width: 100%;
-  font-family: monospace;
-  color: whitesmoke;
+  font-family: San Francisco;
+  color: black;
   -webkit-user-select: none; /* Chrome/Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+ */
@@ -14,37 +20,65 @@ body {
 
 .container {
   height: 100%;
-  width: 100%;
+  width: 400px;
   top: 0;
 }
 
 .button {
-  background-color: black;
-  outline: 1px solid skyblue;
-  height: 15%;
-  width: 25%;
+  background-color: lightgrey;
+  outline: 1px solid dimgrey;
+  height: 100px;
+  width: 100px;
+  padding: auto;
+  display: inline-flex;
   text-align: center;
-  display: inline-grid;
+  align-items: center;
   cursor: pointer;
-  transition: background-color .5s ease-in-out;
-  -webkit-transition: background-color .5s ease-in-out;
-  -moz-transition: background-color .5s ease-in-out;
-  -o-transition: background-color .5s ease-in-out;
-  -ms-transition: background-color .5s ease-in-out;
+  transition: background-color .25s ease-in-out;
+  -webkit-transition: background-color .25s ease-in-out;
+  -moz-transition: background-color .25s ease-in-out;
+  -o-transition: background-color .25s ease-in-out;
+  -ms-transition: background-color .25s ease-in-out;
+}
+.button h1{
+  width: 100%;
 }
 .button-0 {
-  width: 50%;
+  width: 200px;
 }
 
 .button:hover {
   background-color: skyblue;
 }
-
+.operator {
+  background-color: orange;
+  color: whitesmoke;
+}
+.modifier, .clear {
+  background-color: silver;
+}
 .console {
+  position: inherit;
   top: 0;
   background-color: black;
-  display: block;
-  height: 25%;
-  width: 100%;
+  color: whitesmoke;
+  height: 150px;
+  width: 400px;
+  outline: 1px solid dimgrey;
   text-align: right;
+  padding-top: 0;
+  overflow-x: scroll;
+}
+.stack{
+  font-size: 24px;
+  margin: 0;
+  height: 30px;
+  padding-top: 20px;
+  margin-right: 10px;
+}
+.current {
+  font-size: 72px;
+  margin: 0;
+  height: 100px;
+  margin-right: 10px;
 }
