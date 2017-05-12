@@ -41,6 +41,7 @@ body {
 }
 
 .console {
+  top: 0;
   background-color: black;
   display: block;
   height: 25%;

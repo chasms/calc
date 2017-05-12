@@ -3,27 +3,55 @@
 
 export default function reducer(state = {
   stack: [],
-  value: 0
+  value: 0,
+  console: 0
 }, action){
   switch (action.type) {
+    case 'CLEAR':
+      return {
+        ...state,
+        console: 0
+      }
     case 'CLEAR_ALL':
-      return { stack: [], value: 0 }
+      return {
+        stack: [],
+        value: 0,
+        console: 0
+      }
     case 'NEGATIVE':
-      return {  }
+      return {
+        ...state,
+        stack: [...state.stack, '(' + state.console + '+/-)'],
+        console: (0 - state.console)
+      }
     case 'PERCENT':
-      return {  }
+      return {
+        ...state,
+        stack: [...state.stack, '(' + state.console + '%)'],
+        console: (state.console / 100)
+      }
     case 'DIVIDE':
-      return {  }
+      return { ...state }
     case 'MULTIPLY':
-      return {  }
+      return { ...state }
     case 'SUBTRACT':
-      return {  }
+      return { ...state }
     case 'ADD':
-      return {  }
+      return {
+        ...state,
+        stack: [...state.stack, state.console, '+'],
+        console: 0,
+        value: (state.value + state.console)
+      }
     case 'DECIMAL':
-      return {  }
+      return { ...state }
     case 'EVALUATE':
-      return {  }
+      return {
+        ...state,
+        stack: [...state.stack, state.console, '=']
+      }
+    case 'NUM':
+      return { ...state, console: (state.console * 10 + action.payload) }
     default:
       return state
   }

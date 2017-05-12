@@ -5,25 +5,11 @@ import { bindActionCreators } from 'redux'
 
 class Button extends React.Component {
 
-  constructor() {
-    super()
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClick(type) {
-    switch (type) {
-      case 'AC':
-
-        break;
-      default:
-
-    }
-  }
-
   render() {
     return (
       <div className='console'>
-        <h1>{this.props.value}</h1>
+        <h3>{this.props.stack.join(' ')}</h3>
+        <h1>{(this.props.console === 0) ? (this.props.value) : (this.props.console)}</h1>
       </div>
     )
   }
@@ -32,7 +18,9 @@ class Button extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    value: state.value
+    console: state.console,
+    value: state.value,
+    stack: state.stack
   }
 }
 
