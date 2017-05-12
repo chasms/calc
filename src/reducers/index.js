@@ -21,21 +21,34 @@ export default function reducer(state = {
     case 'NEGATIVE':
       return {
         ...state,
-        stack: [...state.stack, '(' + state.console + '+/-)'],
         console: (0 - state.console)
       }
     case 'PERCENT':
       return {
         ...state,
-        stack: [...state.stack, '(' + state.console + '%)'],
         console: (state.console / 100)
       }
     case 'DIVIDE':
-      return { ...state }
+    return {
+      ...state,
+      stack: [...state.stack, state.console, '÷'],
+      console: 0,
+      value: (state.value / state.console)
+    }
     case 'MULTIPLY':
-      return { ...state }
+    return {
+      ...state,
+      stack: [...state.stack, state.console, '×'],
+      console: 0,
+      value: (state.value * state.console)
+    }
     case 'SUBTRACT':
-      return { ...state }
+    return {
+      ...state,
+      stack: [...state.stack, state.console, '−'],
+      console: 0,
+      value: (state.value - state.console)
+    }
     case 'ADD':
       return {
         ...state,
@@ -44,11 +57,16 @@ export default function reducer(state = {
         value: (state.value + state.console)
       }
     case 'DECIMAL':
-      return { ...state }
+      return {
+        ...state,
+        decimal: true
+      }
     case 'EVALUATE':
       return {
         ...state,
-        stack: [...state.stack, state.console, '=']
+        stack: [...state.stack, state.console, '='],
+        console: 0,
+        value: (state.value )
       }
     case 'NUM':
       return { ...state, console: (state.console * 10 + action.payload) }
