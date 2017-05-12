@@ -1,5 +1,5 @@
 // module imports
-// import { combineReducers } from 'redux'
+import Big from 'big.js'
 
 export default function reducer(state = {
   stack: [],
@@ -73,26 +73,37 @@ export default function reducer(state = {
       } else return state
     case 'EVALUATE':
       let value = evaluate(state)
+      if (state.stack.length === 0 && state.value === 0) {
+        value = state.console
+      }
       return {
         stack: [],
         console: value,
-        value: value,
+        value: 0,
         decimal: 0
       }
     case 'NUM':
+      let con = state.console
+      let val = state.value
+      if (state.stack.length === 0 && state.value !== 0) {
+        con = 0
+        val = 0
+      }
       if (state.decimal === 0) {
         return {
           ...state,
-          console: (state.console * 10 + action.payload)
+          value: val,
+          console: (con * 10 + action.payload)
         }
-      } else if (state.decimal <= -10) {
+      } else if (state.decimal <= -11) {
         return {
           ...state
         }
       } else {
         return {
           ...state,
-          console: (state.console + (action.payload * Math.pow(10, state.decimal))),
+          value: val,
+          console: parseFloat(Big(10).pow(state.decimal).times(action.payload).plus(con).round(10)),
           decimal: (state.decimal - 1)
         }
       }
@@ -102,18 +113,19 @@ export default function reducer(state = {
 }
 
 function evaluate(state) {
+  let val = state.value
   if (state.stack.length === 2) {
-    state.value = state.stack[0]
+    val = state.stack[0]
   }
   switch (state.stack[state.stack.length - 1]) {
     case '+':
-      return state.value + state.console
-    case '-':
-      return state.value - state.console
+      return parseFloat(Big(val).plus(state.console).round(10))
+    case '−':
+      return parseFloat(Big(val).minus(state.console).round(10))
     case '÷':
-      return state.value / state.console
+      return parseFloat(Big(val).div(state.console).round(10))
     case '×':
-      return state.value * state.console
+      return parseFloat(Big(val).times(state.console).round(10))
     default: return state.value
   }
 }
