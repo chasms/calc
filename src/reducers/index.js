@@ -90,8 +90,8 @@ export default function reducer(state = {
 }
 
 function operate(state, operator) {
-  if (state.stack.length > 0 && typeof(state.stack[state.stack.length - 1]) !== 'number') {
-    let tmp = Object.assign([], state.stack) // if last item on stack is operator, replace with current choice
+  if (state.stack.length > 0 && typeof(state.stack[state.stack.length - 1]) !== 'number' && state.console === 0) {
+    let tmp = Object.assign([], state.stack) // if last item on stack is operator and console is empty, replace with current choice
     tmp[tmp.length - 1] = operator
     return {
       ...state,
