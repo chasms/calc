@@ -1,7 +1,6 @@
 // std library imports
 import React from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
 class Button extends React.Component {
 
@@ -28,10 +27,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-
-  }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Button)
+export default connect(mapStateToProps)(Button)

@@ -34,36 +34,13 @@ export default function reducer(state = {
         decimal: 0
       }
     case 'DIVIDE':
-    return {
-      ...state,
-      stack: [...state.stack, state.console, '÷'],
-      console: 0,
-      value: evaluate(state),
-      decimal: 0
-    }
+      return operate(state, '÷')
     case 'MULTIPLY':
-    return {
-      ...state,
-      stack: [...state.stack, state.console, '×'],
-      console: 0,
-      value: evaluate(state),
-      decimal: 0
-    }
+      return operate(state, '×')
     case 'SUBTRACT':
-    return {
-      stack: [...state.stack, state.console, '−'],
-      console: 0,
-      value: evaluate(state),
-      decimal: 0
-    }
+      return operate(state, '−')
     case 'ADD':
-      return {
-        ...state,
-        stack: [...state.stack, state.console, '+'],
-        console: 0,
-        value: evaluate(state),
-        decimal: 0
-      }
+      return operate(state, '+')
     case 'DECIMAL':
       if (state.decimal === 0) {
         return {
@@ -78,8 +55,8 @@ export default function reducer(state = {
       }
       return {
         stack: [],
-        console: value,
-        value: 0,
+        console: 0,
+        value: value,
         decimal: 0
       }
     case 'NUM':
@@ -112,10 +89,33 @@ export default function reducer(state = {
   }
 }
 
+function operate(state, operator) {
+  if (state.stack.length > 0 && typeof(state.stack[state.stack.length - 1]) !== 'number') {
+    let tmp = Object.assign([], state.stack) // if last item on stack is operator, replace with current choice
+    tmp[tmp.length - 1] = operator
+    return {
+      ...state,
+      stack: tmp
+    }
+  } else {
+    let con = state.console
+    if (con === 0 && state.value !== 0) {
+      con = state.value
+    }
+    return {
+      ...state,
+      stack: [...state.stack, con, operator],
+      console: 0,
+      value: evaluate(state),
+      decimal: 0
+    }
+  }
+}
+
 function evaluate(state) {
   let val = state.value
-  if (state.stack.length === 2) {
-    val = state.stack[0]
+  if (state.stack.length === 2) {   // if only one operation on stack, state.value will be 0
+    val = state.stack[0]            // so we use first console value pushed to stack
   }
   switch (state.stack[state.stack.length - 1]) {
     case '+':
